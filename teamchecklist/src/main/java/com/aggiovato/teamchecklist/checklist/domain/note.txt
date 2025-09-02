@@ -1,0 +1,15 @@
+TODAS LAS ENTIDADES JPA
+
+Modelo de datos (ER compacto)
+
+Checklist(id, title, description, createdAt)
+Item(id, checklist_id, text, done, lastEditedBy, updatedAt)
+
+Relación 1:N: Checklist — Item.
+
+
+Reglas:
+
+- title obligatorio (<=120), text obligatorio (<=240).
+
+- Índices: FK checklist_id y (opcional) checklist_id, done para filtrar rápido.
