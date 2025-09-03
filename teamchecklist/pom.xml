@@ -59,7 +59,15 @@
             <groupId>org.projectlombok</groupId><artifactId>lombok</artifactId><optional>true</optional>
         </dependency>
 
-	</dependencies>
+        <!-- FLYWAY -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>11.10.0</version>
+        </dependency>
+
+
+    </dependencies>
 
 	<build>
 		<plugins>

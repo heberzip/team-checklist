@@ -1,5 +1,6 @@
 package com.aggiovato.teamchecklist.checklist.web;
 
+import com.aggiovato.teamchecklist.checklist.dto.ItemCreateDTO;
 import com.aggiovato.teamchecklist.checklist.dto.ItemDTO;
 import com.aggiovato.teamchecklist.checklist.dto.ItemUpdateDTO;
 import com.aggiovato.teamchecklist.checklist.mapper.ItemMapper;
@@ -24,7 +25,7 @@ public class ItemController {
     }
 
     @PostMapping @ResponseStatus(HttpStatus.CREATED)
-    public ItemDTO create(@PathVariable Long checklistId, @Valid @RequestBody ItemDTO dto) {
+    public ItemDTO create(@PathVariable Long checklistId, @Valid @RequestBody ItemCreateDTO dto) {
         return ItemMapper.toDTO(service.create(checklistId, dto.text()));
     }
 

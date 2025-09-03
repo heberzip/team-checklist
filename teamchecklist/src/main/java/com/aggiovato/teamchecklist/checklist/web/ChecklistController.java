@@ -7,9 +7,10 @@ import com.aggiovato.teamchecklist.checklist.service.ChecklistService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/checklists")
@@ -19,8 +20,14 @@ public class ChecklistController {
     private final ChecklistService service;
 
     @GetMapping
-    public List<ChecklistDTO> list(){
-        return service.list().stream().map(ChecklistMapper::toDTO).toList();
+    public ResponseEntity<?> list(){
+        var resp = service.list().stream().map(ChecklistMapper::toDTO).toList();
+        if(resp.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "no checklists found"));
+        };
+        return ResponseEntity.ok(resp);
     }
 
     @PostMapping @ResponseStatus(HttpStatus.CREATED)
