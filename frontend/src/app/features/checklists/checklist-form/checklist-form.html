@@ -1,0 +1,20 @@
+<section class="container">
+  <h1>{{ title }}</h1>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <label>Título *</label>
+    <input formControlName="title" />
+    @if (form.controls.title.touched && form.controls.title.invalid) {
+      <div class="error">Requerido, máx. 120 caracteres</div>
+    }
+
+    <label>Descripción</label>
+    <textarea formControlName="description" rows="3"></textarea>
+    @if (form.controls.description.touched && form.controls.description.invalid) {
+      <div class="error">Máx. 500 caracteres</div>
+    }
+
+    <button type="submit" [disabled]="form.invalid || loading">Guardar</button>
+    <button type="button" (click)="cancel()">Cancelar</button>
+  </form>
+</section>
+

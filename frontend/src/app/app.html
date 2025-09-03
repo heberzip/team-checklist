@@ -1,0 +1,23 @@
+<!-- src/app/app.html -->
+<header class="container">
+  <h1>{{ title() }}</h1>
+
+  <nav>
+    <a routerLink="/checklists" routerLinkActive="active" ariaCurrentWhenActive="page">
+      Checklists
+    </a>
+    <a routerLink="/checklists/new" routerLinkActive="active">
+      Nuevo
+    </a>
+  </nav>
+
+  <hr />
+</header>
+
+<main class="container">
+  <router-outlet />
+</main>
+
+<footer class="container muted" style="margin-top: 2rem;">
+  <small>© {{ title() }}</small>
+</footer>

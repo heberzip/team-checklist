@@ -1,0 +1,23 @@
+<!-- src/app/features/checklists/checklist-list/checklist-list.component.html -->
+<section class="container">
+  <h1>Checklists</h1>
+  <button (click)="goNew()">Nuevo</button>
+
+  @if (loading) { <p>Cargando…</p> }
+  @if (error) { <p>{{ error }}</p> }
+
+  @if (!loading && data.length) {
+    <ul>
+      @for (c of data; track c.id) {
+        <li>
+          <strong>{{ c.title }}</strong>
+          <small> · {{ c.createdAt | date:'short' }}</small>
+          <button (click)="delete(c.id)">Eliminar</button>
+          <div class="muted">{{ c.description }}</div>
+        </li>
+      }
+    </ul>
+  } @else if (!loading) {
+    <p>Sin registros.</p>
+  }
+</section>
