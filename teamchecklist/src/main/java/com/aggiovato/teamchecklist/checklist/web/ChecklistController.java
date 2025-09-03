@@ -26,11 +26,11 @@ public class ChecklistController {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(Map.of("message", "no checklists found"));
-        };
+        }
         return ResponseEntity.ok(resp);
     }
 
-    @PostMapping @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/new") @ResponseStatus(HttpStatus.CREATED)
     public ChecklistDTO create(@Valid @RequestBody ChecklistCreateDTO dto){
         return ChecklistMapper.toDTO(service.create(dto.title(), dto.description()));
     }
@@ -40,6 +40,6 @@ public class ChecklistController {
         return ChecklistMapper.toDTO(service.get(id));
     }
 
-    @DeleteMapping("/{id}") @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/delete/{id}") @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) { service.delete(id); }
 }

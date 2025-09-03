@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>TEAMCHECKLIST API</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f9fafb;
+            color: #333444;
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.5;
+        }
+        header {
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+        h1 {
+            color: #111827;
+        }
+        code {
+            background: #33333370;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: white;
+        }
+        .endpoint {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-left: 4px solid #3b82f6;
+            background: #eff6ff;
+        }
+        .endpoint h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        footer {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>TEAMCHECKLIST API</h1>
+    <p>Bienvenido! Esta API te permite gestionar <strong>checklists</strong> y sus <strong>items</strong>.</p>
+</header>
+
+<section>
+    <h2>Operaciones básicas</h2>
+
+    <div class="endpoint">
+        <h3>Listar checklists</h3>
+        <p><code>GET /api/checklists</code></p>
+    </div>
+
+    <div class="endpoint">
+        <h3>Crear un checklist</h3>
+        <p><code>POST /api/checklists</code></p>
+        <p><em>Body JSON:</em></p>
+        <pre>{
+  "title": "Sprint demo",
+  "description": "Tareas del sprint"
+}</pre>
+    </div>
+
+    <div class="endpoint">
+        <h3>Obtener un checklist por ID</h3>
+        <p><code>GET /api/checklists/{id}</code></p>
+    </div>
+
+    <div class="endpoint">
+        <h3>Eliminar un checklist</h3>
+        <p><code>DELETE /api/checklists/{id}</code></p>
+    </div>
+
+    <div class="endpoint">
+        <h3>Listar items de un checklist</h3>
+        <p><code>GET /api/checklists/{id}/items</code></p>
+    </div>
+
+    <div class="endpoint">
+        <h3>Agregar un item</h3>
+        <p><code>POST /api/checklists/{id}/items</code></p>
+        <p><em>Body JSON:</em></p>
+        <pre>{
+  "text": "Configurar Angular + Tailwind"
+}</pre>
+    </div>
+
+    <div class="endpoint">
+        <h3>Actualizar un item</h3>
+        <p><code>PATCH /api/checklists/{id}/items/{itemId}</code></p>
+        <p><em>Body JSON:</em></p>
+        <pre>{
+  "done": true,
+  "lastEditedBy": "Ana"
+}</pre>
+    </div>
+
+    <div class="endpoint">
+        <h3>Eliminar un item</h3>
+        <p><code>DELETE /api/checklists/{id}/items/{itemId}</code></p>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 TEAMCHECKLIST API — Aggiovato</p>
+</footer>
+</body>
+</html>

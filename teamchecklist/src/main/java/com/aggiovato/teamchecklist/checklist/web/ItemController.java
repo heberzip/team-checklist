@@ -24,17 +24,17 @@ public class ItemController {
         return service.listByCheclist(checklistId).stream().map(ItemMapper::toDTO).toList();
     }
 
-    @PostMapping @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/new") @ResponseStatus(HttpStatus.CREATED)
     public ItemDTO create(@PathVariable Long checklistId, @Valid @RequestBody ItemCreateDTO dto) {
         return ItemMapper.toDTO(service.create(checklistId, dto.text()));
     }
 
-    @PatchMapping("/{itemId}")
+    @PatchMapping("/update/{itemId}")
     public ItemDTO update(@PathVariable Long checklistId, @PathVariable Long itemId, @Valid @RequestBody ItemUpdateDTO dto) {
         return ItemMapper.toDTO(service.update(itemId, dto.done(), dto.text(), dto.lastEditedBy()));
     }
 
-    @DeleteMapping("/{itemId}") @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/delete/{itemId}") @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long checklistId, @PathVariable Long itemId) {
         service.delete(itemId);
     }
