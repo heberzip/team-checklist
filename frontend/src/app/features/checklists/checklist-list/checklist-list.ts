@@ -9,7 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'chl-checklist-list',
   imports: [CommonModule, DatePipe],
   templateUrl: './checklist-list.html',
-  styleUrl: './checklist-list.scss'
+  styleUrl: './checklist-list.css'
 })
 export class ChecklistList implements OnInit {
   private api = inject(ChecklistService);

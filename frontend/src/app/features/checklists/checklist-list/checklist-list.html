@@ -1,7 +1,7 @@
 <!-- src/app/features/checklists/checklist-list/checklist-list.component.html -->
 <section class="container">
   <h1>Checklists</h1>
-  <button (click)="goNew()">Nuevo</button>
+  <button (click)="goNew()" class="primary">Nuevo</button>
 
   @if (loading) { <p>Cargando…</p> }
   @if (error) { <p>{{ error }}</p> }
@@ -12,7 +12,7 @@
         <li>
           <strong>{{ c.title }}</strong>
           <small> · {{ c.createdAt | date:'short' }}</small>
-          <button (click)="delete(c.id)">Eliminar</button>
+          <button (click)="delete(c.id)" class="danger">Eliminar</button>
           <div class="muted">{{ c.description }}</div>
         </li>
       }

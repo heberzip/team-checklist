@@ -4,7 +4,7 @@
     <label>Título *</label>
     <input formControlName="title" />
     @if (form.controls.title.touched && form.controls.title.invalid) {
-      <div class="error">Requerido, máx. 120 caracteres</div>
+      <small class="error">Requerido, máx. 120 caracteres</small>
     }
 
     <label>Descripción</label>

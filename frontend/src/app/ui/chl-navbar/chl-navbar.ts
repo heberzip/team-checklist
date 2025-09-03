@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'chl-chl-navbar',
+  selector: 'chl-navbar',
   imports: [],
   templateUrl: './chl-navbar.html',
-  styleUrl: './chl-navbar.scss'
+  styleUrl: './chl-navbar.css'
 })
 export class ChlNavbar {
 

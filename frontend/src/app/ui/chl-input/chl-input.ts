@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'chl-chl-input',
+  selector: 'chl-input',
   imports: [],
   templateUrl: './chl-input.html',
-  styleUrl: './chl-input.scss'
+  styleUrl: './chl-input.css'
 })
 export class ChlInput {
 

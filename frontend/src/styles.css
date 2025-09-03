@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* ================================
+   BASE
+   ================================ */
+html, body {
+  @apply min-h-screen bg-gray-50 text-gray-900 p-8;
+  font-family: system-ui, -apple-system, "Nunito", sans-serif;
+  line-height: 1.5;
+}
+
+/* Contenedor reutilizable */
+.container {
+  @apply max-w-5xl mx-auto px-4 mb-8;
+}
+
+/* ================================
+   TIPOGRAFÍA
+   ================================ */
+h1 {
+  @apply text-3xl font-bold text-gray-800 mb-4;
+}
+
+h2 {
+  @apply text-2xl font-semibold text-gray-700 mb-3;
+}
+
+p {
+  @apply text-base text-gray-700 leading-relaxed;
+}
+
+.muted {
+  @apply text-sm text-gray-500;
+}
+
+/* ================================
+   BOTONES
+   ================================ */
+button {
+  @apply inline-flex items-center px-6 py-1 rounded-lg font-medium transition-colors;
+}
+
+button.primary {
+  @apply bg-cyan-600 text-white hover:bg-cyan-700;
+}
+
+button.secondary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+}
+
+button.danger {
+  @apply bg-orange-400 text-white hover:bg-orange-500;
+}
+
+/* ================================
+   NAVBAR / LINKS
+   ================================ */
+nav a {
+  @apply text-gray-600 hover:text-gray-900 px-3 py-2 transition-colors;
+}
+
+nav a.active {
+  @apply font-semibold text-blue-600 border-b-2 border-blue-600;
+}
+
+/* ================================
+   FORMULARIOS
+   ================================ */
+input, textarea, select {
+  @apply w-full border rounded-lg px-3 py-2 text-sm text-gray-900
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+.error {
+  @apply text-sm text-red-600 mt-1;
+}

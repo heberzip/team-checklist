@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'chl-chl-button',
+  selector: 'chl-button',
   imports: [],
   templateUrl: './chl-button.html',
-  styleUrl: './chl-button.scss'
+  styleUrl: './chl-button.css'
 })
 export class ChlButton {
 
