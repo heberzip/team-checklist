@@ -1,21 +1,29 @@
-# docker-compose.yml
-version: "3.8"
 services:
-  postgres:
+  db:
     image: postgres:16.4
-    container_name: pg-checklist
+    container_name: chl_db
     environment:
       POSTGRES_USER: checklist
       POSTGRES_PASSWORD: checklist
       POSTGRES_DB: checklist_db
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ${PWD}/backend/seed.sql:/docker-entrypoint-initdb.d/seed.sql:ro
     healthcheck:
       test: ["CMD-SHELL","pg_isready -U checklist -d checklist_db"]
       interval: 5s
       timeout: 5s
       retries: 10
+    networks:
+      - backend
+    # Opcional: publícalo si usas clientes locales (pgAdmin/IDE).
+    # Cambia a 5433 si ya tienes un Postgres en tu host:
+    ports:
+      - "5432:5432"
+
 volumes:
   pgdata:
+
+networks:
+  backend:
+    name: backend

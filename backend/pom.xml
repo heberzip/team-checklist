@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.aggiovato</groupId>
-	<artifactId>teamchecklist</artifactId>
+	<artifactId>teamchecklist-back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>teamchecklist</name>
 	<description>Starter project</description>
@@ -64,6 +64,13 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>11.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
 
 

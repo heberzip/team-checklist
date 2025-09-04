@@ -1,0 +1,43 @@
+services:
+  api:
+    image: chl-api:dev
+    container_name: chl_api
+    build:
+      context: ${PWD}
+      dockerfile: .docker/api/Dockerfile
+    working_dir: /app
+    command: >
+      mvn -q
+      -Dspring-boot.run.profiles=dev
+      -Dspring-boot.run.jvmArguments="-XX:MaxRAMPercentage=75"
+      spring-boot:run
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/checklist_db
+      SPRING_DATASOURCE_USERNAME: checklist
+      SPRING_DATASOURCE_PASSWORD: checklist
+      SERVER_PORT: 8080
+    volumes:
+      - ${PWD}/backend:/app
+      - maven-cache:/root/.m2
+    depends_on:
+      db:
+        condition: service_healthy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=web
+      - traefik.http.routers.api.rule=Host(`chl.api.local`)
+      - traefik.http.routers.api.entrypoints=web
+      - traefik.http.services.api.loadbalancer.server.port=8080
+    networks:
+      - backend
+      - web
+
+networks:
+  backend:
+    external: true
+  web:
+    external: true
+
+volumes:
+  maven-cache:
