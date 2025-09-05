@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+
+
 /* ================================
    BASE
    ================================ */
@@ -9,10 +11,6 @@ html, body {
   line-height: 1.5;
 }
 
-/* Contenedor reutilizable */
-.container {
-  @apply max-w-5xl mx-auto px-4 mb-8;
-}
 
 /* ================================
    TIPOGRAFÍA
@@ -36,20 +34,21 @@ p {
 /* ================================
    BOTONES
    ================================ */
-button {
-  @apply inline-flex items-center px-6 py-1 rounded-lg font-medium transition-colors;
-}
 
-button.primary {
-  @apply bg-cyan-600 text-white hover:bg-cyan-700;
-}
+p-button {
+  @apply inline-flex items-center px-6 py-1.5 rounded-lg font-medium transition-colors;
 
-button.secondary {
-  @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
-}
+  &.primary {
+    @apply bg-cyan-600 text-white hover:bg-cyan-700;
+  }
 
-button.danger {
-  @apply bg-orange-400 text-white hover:bg-orange-500;
+  &.secondary {
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+  }
+
+  &.danger {
+    @apply bg-orange-400 text-white hover:bg-orange-500;
+  }
 }
 
 /* ================================

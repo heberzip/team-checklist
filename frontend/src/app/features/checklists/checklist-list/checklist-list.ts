@@ -5,9 +5,11 @@ import { ChecklistService } from '../../../core/checklist.service';
 import { Checklist } from '../../../store/models/checklist.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
+import { ButtonModule } from 'primeng/button';
+
 @Component({
   selector: 'chl-checklist-list',
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe, ButtonModule],
   templateUrl: './checklist-list.html',
   styleUrl: './checklist-list.css'
 })
