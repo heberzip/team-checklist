@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ChecklistService } from '../../../core/checklist.service';
@@ -6,21 +6,24 @@ import { Checklist } from '../../../store/models/checklist.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'chl-checklist-list',
   imports: [CommonModule, DatePipe, ButtonModule],
   templateUrl: './checklist-list.html',
-  styleUrl: './checklist-list.css'
 })
 export class ChecklistList implements OnInit {
   private api = inject(ChecklistService);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
+  private readonly msg = inject(MessageService);
 
   loading = false;
   data: Checklist[] = [];
   error?: string;
+
+  description = signal('Description');
 
   ngOnInit() {
     this.loading = true;
@@ -38,9 +41,25 @@ export class ChecklistList implements OnInit {
 
   delete(id: number) {
     if (!confirm('¿Eliminar checklist?')) return;
-    this.api.remove(id)
+
+    this.api.delete(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => this.ngOnInit());
+      .subscribe({
+        next: () => {
+          this.ngOnInit();
+          this.msg.add({
+              severity: 'success',
+              summary: 'Eliminado',
+              detail: 'Checklist eliminado correctamente',
+              life: 2500
+          });
+        },
+        error: (err) => this.msg.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err?.error?.message ?? 'No se pudo eliminar el checklist',
+          life: 4000
+        })
+      });
   }
 }
-

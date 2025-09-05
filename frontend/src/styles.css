@@ -1,12 +1,13 @@
 @import "tailwindcss";
-
+@import "./styles/theme.css";
+@import "./styles/components/index.css";
 
 
 /* ================================
    BASE
    ================================ */
 html, body {
-  @apply min-h-screen bg-gray-50 text-gray-900 p-8;
+  @apply relative min-h-screen bg-neutral-50 text-neutral-800 p-4 items-center;
   font-family: system-ui, -apple-system, "Nunito", sans-serif;
   line-height: 1.5;
 }
@@ -16,39 +17,19 @@ html, body {
    TIPOGRAFÍA
    ================================ */
 h1 {
-  @apply text-3xl font-bold text-gray-800 mb-4;
+  @apply text-3xl font-bold text-neutral-700 mb-4;
 }
 
 h2 {
-  @apply text-2xl font-semibold text-gray-700 mb-3;
+  @apply text-2xl font-semibold text-neutral-600 mb-3;
 }
 
 p {
-  @apply text-base text-gray-700 leading-relaxed;
+  @apply text-base text-neutral-600 leading-relaxed;
 }
 
 .muted {
-  @apply text-sm text-gray-500;
-}
-
-/* ================================
-   BOTONES
-   ================================ */
-
-p-button {
-  @apply inline-flex items-center px-6 py-1.5 rounded-lg font-medium transition-colors;
-
-  &.primary {
-    @apply bg-cyan-600 text-white hover:bg-cyan-700;
-  }
-
-  &.secondary {
-    @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
-  }
-
-  &.danger {
-    @apply bg-orange-400 text-white hover:bg-orange-500;
-  }
+  @apply text-sm text-neutral-400;
 }
 
 /* ================================
@@ -71,7 +52,7 @@ input, textarea, select {
 }
 
 label {
-  @apply block text-sm font-medium text-gray-700 mb-1;
+  @apply block text-sm font-medium text-neutral-800 mb-1;
 }
 
 .error {

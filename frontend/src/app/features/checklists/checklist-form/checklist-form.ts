@@ -9,7 +9,6 @@ import { ChecklistService } from '../../../core/checklist.service';
   selector: 'chl-checklist-form',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './checklist-form.html',
-  styleUrl: './checklist-form.css'
 })
 export class ChecklistForm implements OnInit {
   private fb = inject(FormBuilder);

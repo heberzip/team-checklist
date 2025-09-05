@@ -1,0 +1,95 @@
+:root {
+  --color-zip: #FBBF10; /* color principal de la marca */
+
+
+  --color-blue-100: #EBF6F8FF;
+  --color-blue-200: #CBE6ECFF;
+  --color-blue-300: #97CED9FF;
+  --color-blue-400: #64B6C8FF;
+  --color-blue-500: #309EB5FF;
+  --color-blue-600: #247688FF;
+  --color-blue-700: #184F5AFF;
+  --color-blue-800: #0C272DFF;
+
+  --color-yellow-100: #FEF9E6FF;
+  --color-yellow-200: #FBEFC0FF;
+  --color-yellow-300: #F6DE81FF;
+  --color-yellow-400: #F3CF43FF;
+  --color-yellow-500: #EFBF04FF;
+  --color-yellow-600: #B38F03FF;
+  --color-yellow-700: #775F02FF;
+  --color-yellow-800: #3C3001FF;
+
+  --color-red-100: #FEEFEFFF;
+  --color-red-200: #FBD6D6FF;
+  --color-red-300: #F8AEAEFF;
+  --color-red-400: #F58686FF;
+  --color-red-500: #F25E5EFF;
+  --color-red-600: #B54646FF;
+  --color-red-700: #792F2FFF;
+  --color-red-800: #3C1717FF;
+
+  --color-green-100: #F2F6EFFF;
+  --color-green-200: #DDE7D7FF;
+  --color-green-300: #BACFAEFF;
+  --color-green-400: #99B987FF;
+  --color-green-500: #77A15FFF;
+  --color-green-600: #597947FF;
+  --color-green-700: #3B502FFF;
+  --color-green-800: #1E2818FF;
+
+  --color-lightblue-100: #EEF5F7FF;
+  --color-lightblue-200: #D3E5E8FF;
+  --color-lightblue-300: #A7CBD2FF;
+  --color-lightblue-400: #7DB2BCFF;
+  --color-lightblue-500: #5198A6FF;
+  --color-lightblue-600: #3D727CFF;
+  --color-lightblue-700: #284C53FF;
+  --color-lightblue-800: #142629FF;
+
+  --color-orange-100: #FFF5EBFF;
+  --color-orange-200: #FEE6CCFF;
+  --color-orange-300: #FDCC99FF;
+  --color-orange-400: #FDB467FF;
+  --color-orange-500: #FC9B34FF;
+  --color-orange-600: #BD7427FF;
+  --color-orange-700: #7E4D1AFF;
+  --color-orange-800: #3F270DFF;
+
+  --color-gray-100: #F2F2F2FF;
+  --color-gray-200: #DDDDDDFF;
+  --color-gray-300: #BCBCBCFF;
+  --color-gray-400: #9B9B9BFF;
+  --color-gray-500: #7A7A7AFF;
+  --color-gray-600: #5B5B5BFF;
+  --color-gray-700: #3D3D3DFF;
+  --color-gray-800: #1E1E1EFF;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  
+  --scale-0: 0px;
+  --scale-25: 1px;
+  --scale-50: 2px;
+  --scale-100: 4px;
+  --scale-200: 8px;
+  --scale-300: 12px;
+  --scale-400: 16px;
+  --scale-500: 20px;
+  --scale-600: 24px;
+  --scale-700: 28px;
+  --scale-800: 32px;
+  --scale-900: 36px;
+  --scale-1000: 40px;
+  --scale-1100: 44px;
+  --scale-1200: 48px;
+  --scale-1300: 52px;
+  --scale-1400: 56px;
+  --scale-1500: 60px;
+  --scale-1600: 64px;
+  --scale-2000: 80px;
+  --scale-2500: 100px;
+  --scale-3000: 120px;
+  --scale-4000: 160px;
+}

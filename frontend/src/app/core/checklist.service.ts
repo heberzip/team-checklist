@@ -28,7 +28,7 @@ export class ChecklistService {
   }
 
   // DELETE /api/checklists/delete/{id}
-  remove(id: number): Observable<void> {
+  delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.base}/delete/${id}`);
   }
 }

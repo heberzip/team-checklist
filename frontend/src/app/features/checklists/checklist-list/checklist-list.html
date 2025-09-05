@@ -1,7 +1,8 @@
-<h1>Checklists</h1>
-<p-button label="Añadir" severity="warn" class="primary" (click)="goNew()"/>
+<section class="flex flex-col gap-6 mt-8">
+  <h2>Checklists</h2>
+  <p-button label="Añadir" severity="warn" class="primary" (click)="goNew()"/>
 
-<section>
+
   @if (loading) { <p>Cargando…</p> }
   @if (error) { <p>{{ error }}</p> }
 
@@ -9,12 +10,18 @@
     <ul class="checklist-grid">
       @for (c of data; track c.id) {
         <li class="checklist-card">
-          <div class="checklist-title">
-            <strong>{{ c.title }}</strong>
-           <small>{{ c.createdAt | date:'short' }}</small>
+          <div class="checklist-card title">
+            <div class="flex flex-col gap-0">
+              <strong>{{ c.title }}</strong>
+              <small>{{ c.createdAt | date:'short' }}</small>
+            </div>
+            <p-button (click)="delete(c.id)" class="secondary" label="Eliminar"/>
           </div>
-          <div class="muted">{{ c.description }}</div>
-          <p-button (click)="delete(c.id)" class="danger" label="Eliminar"/>
+          <div class="checklist-description">
+            <p class="checklist-description title">{{ description() }}</p>
+            <p class="checklist-description content">{{ c.description }}</p>
+          </div>
+          <p-button label="Abrir" class="disabled" disabled/>
         </li>
       }
     </ul>
