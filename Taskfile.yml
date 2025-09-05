@@ -3,164 +3,174 @@ version: '3'
 vars:
   PROJECT: teamchecklist
   TRAEFIK_COMPOSE: compose/traefik.yml
+  DB_COMPOSE: compose/db.yml
+  API_COMPOSE: compose/api.yml
+  FRONT_COMPOSE: compose/frontend.yml
   ROOT:
     sh: pwd
 
 
 # --- STACK - GLOBAL TASKS ---
 tasks:
+  net:init:
+    desc: "CREATE REQUIRED EXTERNAL NETWORKS"
+    cmds:
+      - bash -lc 'docker network inspect web >/dev/null 2>&1 || docker network create web'
+      - bash -lc 'docker network inspect backend >/dev/null 2>&1 || docker network create backend'
+
+
   up:
-    desc: "Traefik + DB + API + Front"
+    desc: "BUILD UP TRAEFIK + DB + API + FRONTEND"
     env:
       PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}
         -f {{.TRAEFIK_COMPOSE}}
-        -f compose/db.yml
-        -f compose/api.yml
-        -f compose/frontend.yml
-        up -d --build --remove-orphans
-      - echo "Front  → http://chl.front.local"
-      - echo "API    → http://chl.api.local"
-      - echo "Proxy  → http://traefik.local:8080"
+        -f {{.DB_COMPOSE}}
+        -f {{.API_COMPOSE}}
+        -f {{.FRONT_COMPOSE}}
+        up -d --remove-orphans
+      - echo "FRONT → http://chl.front.local"
+      - echo "API   → http://chl.api.local"
+      - echo "PROXY → http://traefik.local  > PORT:8080"
 
   down:
-    desc: "Apaga todo"
+    desc: "SHUT DOWN ALL"
     env:
       PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}
         -f {{.TRAEFIK_COMPOSE}}
-        -f compose/db.yml
-        -f compose/api.yml
-        -f compose/frontend.yml
+        -f {{.DB_COMPOSE}}
+        -f {{.API_COMPOSE}}
+        -f {{.FRONT_COMPOSE}}
         down
 
   logs:
-    desc: "Logs combinados"
+    desc: "COMBINED LOGS"
     env:
       PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}
         -f {{.TRAEFIK_COMPOSE}}
-        -f compose/db.yml
-        -f compose/api.yml
-        -f compose/frontend.yml
+        -f {{.DB_COMPOSE}}
+        -f {{.API_COMPOSE}}
+        -f {{.FRONT_COMPOSE}}
         logs -f --tail=100
 
   rebuild:
-    desc: "Rebuild de API y Front"
+    desc: "REBUILD API + FRONTEND"
     env:
       PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}
         -f {{.TRAEFIK_COMPOSE}}
-        -f compose/db.yml
-        -f compose/api.yml
-        -f compose/frontend.yml
+        -f {{.DB_COMPOSE}}
+        -f {{.API_COMPOSE}}
+        -f {{.FRONT_COMPOSE}}
         build --no-cache api front
       - task: up
 
   ps:
-    desc: "Estado de todo el stack (Traefik + DB + API + Front)"
+    desc: "FULL STACK STATE"
     env:
       PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}
         -f {{.TRAEFIK_COMPOSE}}
-        -f compose/db.yml
-        -f compose/api.yml
-        -f compose/frontend.yml
+        -f {{.DB_COMPOSE}}
+        -f {{.API_COMPOSE}}
+        -f {{.FRONT_COMPOSE}}
         ps
 
   db:reseed:
-    desc: "Recrea SOLO Postgres borrando el volumen y re-ejecutando backend/seed.sql"
+    desc: "RECREATE JUST POSTGRE AND RESEED THE DB"
     env:
       PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}
-        -f compose/db.yml
+        -f {{.DB_COMPOSE}}
         down -v
       - >
         docker compose -p {{.PROJECT}}
-        -f compose/db.yml
+        -f {{.DB_COMPOSE}}
         up -d db
-      - echo "Postgres limpio y seed aplicado desde backend/seed.sql"
+      - echo "POSTGRE CLEANED UP AND SEED APPLIED"
 
   # --- SPECIFIC TASKS ---
   proxy:up:
-    desc: "Levanta Traefik (reverse proxy) en la red 'web'"
+    desc: "MONT TRAEFIK (REVERSE PROXY) IN WEB NETWORK"
     cmds:
       - docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} up -d
 
   proxy:down:
-    desc: "Detiene Traefik"
+    desc: "STOP TRAEFIK"
     cmds:
       - docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} down
 
   hosts:print:
-    desc: "Muestra las líneas que debes añadir a /etc/hosts"
+    desc: "SHOW THE LINES THAT NEED TO BE ADD TO ETC/HOSTS"
     cmds:
-      - echo "Añade estas líneas a tu /etc/hosts (o equivalente en Windows):"
+      - echo "ADD THESE LINES TO /etc/hosts:"
       - echo "127.0.0.1  traefik.local chl.front.local chl.api.local"
 
   front:build:
     desc: "Build de la imagen del frontend (dev)"
     cmds:
-      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f compose/frontend.yml build front
+      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f {{.FRONT_COMPOSE}} build front
 
   front:up:
     desc: "Levanta el frontend con hot-reload"
     deps: [ proxy:up ]
     cmds:
-      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f compose/frontend.yml up -d front
+      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f {{.FRONT_COMPOSE}} up -d front
       - echo "Abre http://chl.front.local"
 
   front:logs:
     desc: "Logs del frontend"
     cmds:
-      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f compose/frontend.yml logs -f front
+      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f {{.FRONT_COMPOSE}} logs -f front
 
   front:down:
     desc: "Detiene el frontend"
     cmds:
-      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f compose/frontend.yml down
+      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f {{.FRONT_COMPOSE}} down
 
 
   db:up:
     desc: "Levanta Postgres para dev"
     cmds:
-      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f compose/db.yml up -d db
+      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f {{.DB_COMPOSE}} up -d db
 
   db:down:
     desc: "Apaga Postgres (y mantiene volumen)"
     cmds:
-      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f compose/db.yml down
+      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f {{.DB_COMPOSE}} down
 
   api:build:
     desc: "Build de la imagen de la API (dev)"
     cmds:
-      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f compose/db.yml -f compose/api.yml build api
+      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f {{.DB_COMPOSE}} -f {{.API_COMPOSE}} build api
 
   api:up:
     desc: "Levanta la API (hot-restart) y la DB si hace falta"
     deps: [ proxy:up ]
     cmds:
-      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f compose/db.yml -f compose/api.yml up -d db api
+      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f {{.DB_COMPOSE}} -f {{.API_COMPOSE}} up -d db api
       - echo "API → http://chl.api.local"
 
   api:logs:
     desc: "Logs de la API"
     cmds:
-      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f compose/db.yml -f compose/api.yml logs -f api
+      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f {{.DB_COMPOSE}} -f {{.API_COMPOSE}} logs -f api
 
   api:down:
     desc: "Detiene la API (DB queda viva si la usan más servicios)"
     cmds:
-      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f compose/db.yml -f compose/api.yml stop api
+      - env PWD={{.ROOT}} docker compose -p {{.PROJECT}} -f {{.TRAEFIK_COMPOSE}} -f {{.DB_COMPOSE}} -f {{.API_COMPOSE}} stop api
