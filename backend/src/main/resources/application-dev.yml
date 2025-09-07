@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/checklist_db
+    username: checklist
+    password: checklist
+
+  flyway:
+    locations: classpath:db/migration,classpath:db/dev

@@ -3,7 +3,7 @@ services:
     image: chl-api:dev
     container_name: chl_api
     build:
-      context: ${PWD}
+      context: ..
       dockerfile: .docker/api/Dockerfile
     working_dir: /app
     command: >
@@ -18,7 +18,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: checklist
       SERVER_PORT: 8080
     volumes:
-      - ${PWD}/backend:/app
+      - ../backend:/app
       - maven-cache:/root/.m2
     depends_on:
       db:
@@ -36,8 +36,10 @@ services:
 networks:
   backend:
     external: true
+    name: backend
   web:
     external: true
+    name: web
 
 volumes:
   maven-cache:

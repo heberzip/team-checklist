@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e29b387-b7f9-42f0-b7ef-0f9e0281fb1b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Taskfile.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Taskfile.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compose/traefik.yml" beforeDir="false" afterPath="$PROJECT_DIR$/compose/traefik.yml" afterDir="false" />
-    </list>
+    <list default="true" id="3e29b387-b7f9-42f0-b7ef-0f9e0281fb1b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +57,8 @@
       <workItem from="1756899586743" duration="38000" />
       <workItem from="1756899634493" duration="42000" />
       <workItem from="1756974421252" duration="8200000" />
-      <workItem from="1757011211939" duration="5099000" />
+      <workItem from="1757011211939" duration="7940000" />
+      <workItem from="1757247646332" duration="6697000" />
     </task>
     <servers />
   </component>

@@ -6,8 +6,6 @@ vars:
   DB_COMPOSE: compose/db.yml
   API_COMPOSE: compose/api.yml
   FRONT_COMPOSE: compose/frontend.yml
-  ROOT:
-    sh: pwd
 
 
 # --- STACK - GLOBAL TASKS ---
@@ -21,8 +19,7 @@ tasks:
 
   up:
     desc: "BUILD UP TRAEFIK + DB + API + FRONTEND"
-    env:
-      PWD: "{{.ROOT}}"
+    deps: [ net:init ]
     cmds:
       - >
         docker compose -p {{.PROJECT}}
@@ -37,8 +34,6 @@ tasks:
 
   down:
     desc: "SHUT DOWN ALL"
-    env:
-      PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}
@@ -50,8 +45,6 @@ tasks:
 
   logs:
     desc: "COMBINED LOGS"
-    env:
-      PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}
@@ -63,8 +56,6 @@ tasks:
 
   rebuild:
     desc: "REBUILD API + FRONTEND"
-    env:
-      PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}
@@ -77,8 +68,6 @@ tasks:
 
   ps:
     desc: "FULL STACK STATE"
-    env:
-      PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}
@@ -90,8 +79,6 @@ tasks:
 
   db:reseed:
     desc: "RECREATE JUST POSTGRE AND RESEED THE DB"
-    env:
-      PWD: "{{.ROOT}}"
     cmds:
       - >
         docker compose -p {{.PROJECT}}

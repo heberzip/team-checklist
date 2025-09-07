@@ -54,16 +54,19 @@
             <groupId>org.postgresql</groupId><artifactId>postgresql</artifactId>
         </dependency>
 
-        <!-- Lombok (optional) -->
-        <dependency>
-            <groupId>org.projectlombok</groupId><artifactId>lombok</artifactId><optional>true</optional>
-        </dependency>
-
-        <!-- FLYWAY -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>11.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+        </dependency>
+
+        <!-- Lombok (optional) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId><artifactId>lombok</artifactId><optional>true</optional>
         </dependency>
 
         <dependency>
