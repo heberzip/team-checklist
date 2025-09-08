@@ -2,21 +2,20 @@ spring:
   application:
     name: teamchecklist
 
-  # DB
-  datasource:
-    url: jdbc:postgresql://localhost:5432/checklist_db
-    username: checklist
-    password: checklist
+
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate.format_sql: true
       hibernate.jdbc.time_zone: UTC
+      dialect: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:
-    enabled: false
+    enabled: true
+    baseline-on-migrate: true
+    clean-disabled: false
     locations: classpath:db/migration
 
   jackson:

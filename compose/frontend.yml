@@ -3,9 +3,11 @@ services:
     image: chl-frontend:dev
     container_name: chl_front
     build:
-      context: ${PWD}
+      context: ..
       dockerfile: .docker/frontend/Dockerfile
     environment:
+      - CHOKIDAR_USEPOLLING=1
+      - NPM_CONFIG_PRODUCTION=false
       - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS=chl.front.local
     command: >
       npm run start -- 
@@ -16,7 +18,7 @@ services:
       --allowed-hosts=chl.front.local
     working_dir: /app
     volumes:
-      - ${PWD}/frontend:/app
+      - ../frontend:/app
       - /app/node_modules
     labels:
       - traefik.enable=true
@@ -30,3 +32,4 @@ services:
 networks:
   web:
     external: true
+    name: web
