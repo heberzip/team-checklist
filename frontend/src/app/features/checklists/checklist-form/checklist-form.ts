@@ -32,30 +32,38 @@ export class ChecklistForm implements OnInit {
       this.id = +idParam;
       this.title = 'Editar checklist';
       this.loading = true;
-      this.api.get(this.id)
+      this.api
+        .get(this.id)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: (c) => {
-            this.form.patchValue({ title: c.title, description: c.description ?? '' });
+            this.form.patchValue({
+              title: c.title,
+              description: c.description ?? '',
+            });
             this.loading = false;
           },
-          error: () => (this.loading = false)
+          error: () => (this.loading = false),
         });
     }
   }
 
   save() {
-    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     const dto = this.form.value as any;
 
     const req$ = this.api.create(dto);
 
-    req$.pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-          next: () => this.router.navigate(['/checklists']),
-          error: () => alert('Error guardando')
-        });
+    req$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => this.router.navigate(['/checklists']),
+      error: () => alert('Error guardando'),
+    });
   }
 
-  cancel() { this.router.navigate(['/checklists']); }
+  cancel() {
+    this.router.navigate(['/checklists']);
+  }
 }

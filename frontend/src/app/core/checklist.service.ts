@@ -4,9 +4,8 @@ import { environment } from '../../env/enviroment';
 import { Observable } from 'rxjs';
 import { Checklist, ChecklistCreateDTO } from '../store/models/checklist.model';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChecklistService {
   private http = inject(HttpClient);
@@ -32,9 +31,3 @@ export class ChecklistService {
     return this.http.delete<void>(`${this.base}/delete/${id}`);
   }
 }
-
-
-
-
-
-

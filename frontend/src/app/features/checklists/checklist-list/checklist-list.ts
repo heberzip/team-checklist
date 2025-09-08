@@ -37,7 +37,7 @@ export class ChecklistList implements OnInit {
 
   goNew() { this.router.navigate(['/checklists/new']); }
 
-  // edit(id: number) { this.router.navigate(['/checklists', id, 'edit']); }
+  openDetails(id: number) { this.router.navigate([`/checklists/${id}/details`]); }
 
   delete(id: number) {
     if (!confirm('¿Eliminar checklist?')) return;

@@ -1,0 +1,17 @@
+<h2>{{ chlData?.title }}</h2>
+
+@if (itmData.length) {
+<ul class="item-list">
+  @for (i of itmData; track i.id) {
+  <li>
+    <label>
+      <input type="checkbox" [checked]="i.done" />
+      <span [class.done]="i.done">{{ i.text }}</span>
+    </label>
+    <p-button label="Eliminar" class="error" (click)="delete(chlId(), i.id)" />
+  </li>
+  }
+</ul>
+} @else {
+<p>Sin ítems.</p>
+}

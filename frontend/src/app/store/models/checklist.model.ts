@@ -8,8 +8,11 @@ export interface Checklist {
 
 export interface Item {
   id: number;
+  chlId: number;
   text: string;
   done: boolean;
+  lastEditedBy?: string | null;
+  updatedAt: string;
 }
 
 export interface ChecklistCreateDTO {

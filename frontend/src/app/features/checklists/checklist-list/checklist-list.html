@@ -1,31 +1,31 @@
 <section class="flex flex-col gap-6 mt-8">
   <h2>Checklists</h2>
-  <p-button label="Añadir" severity="warn" class="primary" (click)="goNew()"/>
+  <p-button label="Añadir" class="primary" (click)="goNew()" />
 
-
-  @if (loading) { <p>Cargando…</p> }
-  @if (error) { <p>{{ error }}</p> }
-
-  @if (!loading && data.length) {
-    <ul class="checklist-grid">
-      @for (c of data; track c.id) {
-        <li class="checklist-card">
-          <div class="checklist-card title">
-            <div class="flex flex-col gap-0">
-              <strong>{{ c.title }}</strong>
-              <small>{{ c.createdAt | date:'short' }}</small>
-            </div>
-            <p-button (click)="delete(c.id)" class="secondary" label="Eliminar"/>
-          </div>
-          <div class="checklist-description">
-            <p class="checklist-description title">{{ description() }}</p>
-            <p class="checklist-description content">{{ c.description }}</p>
-          </div>
-          <p-button label="Abrir" class="disabled" disabled/>
-        </li>
-      }
-    </ul>
+  @if (loading) {
+  <p>Cargando…</p>
+  } @if (error) {
+  <p>{{ error }}</p>
+  } @if (!loading && data.length) {
+  <ul class="checklist-grid">
+    @for (c of data; track c.id) {
+    <li class="checklist-card">
+      <div class="checklist-card title">
+        <div class="flex flex-col gap-0">
+          <strong (click)="openDetails(c.id)">{{ c.title }}</strong>
+          <small>{{ c.createdAt | date : "short" }}</small>
+        </div>
+        <p-button (click)="delete(c.id)" class="error" label="Eliminar" />
+      </div>
+      <div class="checklist-description">
+        <p class="checklist-description title">{{ description() }}</p>
+        <p class="checklist-description content">{{ c.description }}</p>
+      </div>
+      <p-button label="Abrir" class="disabled" disabled />
+    </li>
+    }
+  </ul>
   } @else if (!loading) {
-    <p>Sin registros.</p>
+  <p>Sin registros.</p>
   }
 </section>
