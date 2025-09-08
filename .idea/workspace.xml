@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="3e29b387-b7f9-42f0-b7ef-0f9e0281fb1b" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/backend/src/main/resources/application-dev.yml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V2__seed.sql" afterDir="false" />
@@ -16,6 +17,9 @@
       <change beforePath="$PROJECT_DIR$/compose/frontend.yml" beforeDir="false" afterPath="$PROJECT_DIR$/compose/frontend.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compose/traefik.yml" beforeDir="false" afterPath="$PROJECT_DIR$/compose/traefik.yml" afterDir="false" />
     </list>
+=======
+    <list default="true" id="3e29b387-b7f9-42f0-b7ef-0f9e0281fb1b" name="Changes" comment="" />
+>>>>>>> 23b3ad51650f398cac5d00e29fa403c4864589bd
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,8 +72,13 @@
       <workItem from="1756899586743" duration="38000" />
       <workItem from="1756899634493" duration="42000" />
       <workItem from="1756974421252" duration="8200000" />
+<<<<<<< HEAD
       <workItem from="1757011211939" duration="5099000" />
       <workItem from="1757322466485" duration="1278000" />
+=======
+      <workItem from="1757011211939" duration="7940000" />
+      <workItem from="1757247646332" duration="6697000" />
+>>>>>>> 23b3ad51650f398cac5d00e29fa403c4864589bd
     </task>
     <servers />
   </component>

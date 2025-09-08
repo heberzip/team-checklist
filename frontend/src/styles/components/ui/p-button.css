@@ -29,9 +29,12 @@ p-button {
     @apply bg-neutral-600 text-white hover:bg-neutral-700;
   }
 
-  &.disabled, &[disabled] {
+  &.disabled,
+  &[disabled] {
     @apply bg-neutral-200 text-neutral cursor-not-allowed;
   }
 }
 
-.p-toast { z-index: 9999; }
+.p-toast {
+  z-index: 9999;
+}

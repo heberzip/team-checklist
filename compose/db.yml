@@ -15,8 +15,6 @@ services:
       retries: 10
     networks:
       - backend
-    # Opcional: publícalo si usas clientes locales (pgAdmin/IDE).
-    # Cambia a 5433 si ya tienes un Postgres en tu host:
     ports:
       - "5432:5432"
 

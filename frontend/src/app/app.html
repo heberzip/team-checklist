@@ -1,23 +1,26 @@
 <!-- src/app/app.html -->
-<header class="w-full fixed top-0 right-0 left-0 p-5 pb-8 mb-20 bg-white shadow-md">
+<header
+  class="w-full fixed top-0 right-0 left-0 p-5 pb-8 mb-20 bg-white shadow-md"
+>
   <h1>{{ title() }}</h1>
 
   <nav>
-    <a routerLink="/checklists" routerLinkActive="active" ariaCurrentWhenActive="page">
+    <a
+      routerLink="/checklists"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+    >
       Checklists
     </a>
-    <a routerLink="/checklists/new" routerLinkActive="active">
-      Nuevo
-    </a>
+    <a routerLink="/checklists/new" routerLinkActive="active"> Nuevo </a>
   </nav>
-
 </header>
 
 <main class="w-full mt-30">
-  <p-toast position="top-right"></p-toast>
+  <p-toast position="top-right" unstyled></p-toast>
   <router-outlet />
 </main>
 
-<footer class="w-full muted" style="margin-top: 2rem;">
+<footer class="w-full muted" style="margin-top: 2rem">
   <small>© {{ title() }}</small>
 </footer>
