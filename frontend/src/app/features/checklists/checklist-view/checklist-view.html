@@ -1,17 +1,48 @@
-<h2>{{ chlData?.title }}</h2>
+<section class="flex flex-col gap-6 mt-8">
+  <div
+    class="flex flex-col sm:flex-row items-start gap-6 sm:gap-0 sm:items-center justify-between"
+  >
+    <div class="inline-flex gap-6">
+      <p-button icon="pi pi-chevron-left" class="icon" (click)="goBack()" />
+      <h2>{{ chlData?.title }}</h2>
+    </div>
+    <p-button label="Añadir ítem" class="primary" (click)="goNew()" />
+  </div>
 
-@if (itmData.length) {
-<ul class="item-list">
-  @for (i of itmData; track i.id) {
-  <li>
-    <label>
-      <input type="checkbox" [checked]="i.done" />
-      <span [class.done]="i.done">{{ i.text }}</span>
-    </label>
-    <p-button label="Eliminar" class="error" (click)="delete(chlId(), i.id)" />
-  </li>
+  <p>{{ chlData?.description }}</p>
+
+  @if (itmData.length) {
+  <ul class="item-list flex flex-col gap-2">
+    @for (i of itmData; track i.id) {
+    <li class="flex items-center gap-4 py-3 px-6 shadow-md rounded-lg">
+      <label class="flex items-center space-x-4 flex-1">
+        <input
+          type="checkbox"
+          [checked]="i.done"
+          class="size-[15px] rounded border border-primary-400 accent-primary-500 hover:border-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary-500 focus-visible:outline-rounded disabled:opacity-50"
+        />
+        <span
+          [class.done]="i.done"
+          class="font-semibold text-lg text-neutral-700"
+          >{{ i.text }}</span
+        >
+      </label>
+      <div class="flex items-center gap-1">
+        <p-button
+          icon="pi pi-pencil"
+          class="icon square success"
+          (click)="goEdit(i.id)"
+        />
+        <p-button
+          icon="pi pi-trash"
+          class="icon square error"
+          (click)="delete(chlId(), i.id)"
+        />
+      </div>
+    </li>
+    }
+  </ul>
+  } @else {
+  <p>Sin ítems.</p>
   }
-</ul>
-} @else {
-<p>Sin ítems.</p>
-}
+</section>

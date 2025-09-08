@@ -1,27 +1,27 @@
 @import "tailwindcss";
 @import "./styles/theme.css";
 @import "./styles/components/index.css";
-
+@import "primeicons/primeicons.css";
 
 /* ================================
    BASE
    ================================ */
-html, body {
-  @apply relative min-h-screen bg-neutral-50 text-neutral-800 p-4 items-center;
+html,
+body {
+  @apply relative bg-neutral-50 text-neutral-800 p-4 items-center;
   font-family: system-ui, -apple-system, "Nunito", sans-serif;
   line-height: 1.5;
 }
-
 
 /* ================================
    TIPOGRAFÍA
    ================================ */
 h1 {
-  @apply text-3xl font-bold text-neutral-700 mb-4;
+  @apply text-3xl font-bold text-default;
 }
 
 h2 {
-  @apply text-2xl font-semibold text-neutral-600 mb-3;
+  @apply text-2xl font-semibold text-neutral-600;
 }
 
 p {
@@ -36,25 +36,27 @@ p {
    NAVBAR / LINKS
    ================================ */
 nav a {
-  @apply text-gray-600 hover:text-gray-900 px-3 py-2 transition-colors;
+  @apply text-default hover:text-white px-6 py-2 transition-colors;
 }
 
 nav a.active {
-  @apply font-semibold text-blue-600 border-b-2 border-blue-600;
+  @apply bg-default/15 rounded-t-md border-b-3 border-default;
 }
 
 /* ================================
    FORMULARIOS
    ================================ */
-input, textarea, select {
-  @apply w-full border rounded-lg px-3 py-2 text-sm text-gray-900
-         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+input[type="text"],
+textarea,
+select {
+  @apply w-full text-sm border border-neutral-400 rounded-sm px-2.5 py-1.5 text-neutral-600
+         focus:outline-none focus:ring-2 focus:ring-default focus:border-neutral-300;
 }
 
 label {
-  @apply block text-sm font-medium text-neutral-800 mb-1;
+  @apply block text-sm font-medium text-neutral-700 mb-1;
 }
 
 .error {
-  @apply text-sm text-red-600 mt-1;
+  @apply text-xs font-semibold text-error-500;
 }

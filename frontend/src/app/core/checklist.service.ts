@@ -26,6 +26,10 @@ export class ChecklistService {
     return this.http.post<Checklist>(`${this.base}/new`, dto);
   }
 
+  edite(id: number, dto: Partial<ChecklistCreateDTO>): Observable<Checklist> {
+    return this.http.put<Checklist>(`${this.base}/edit/${id}`, dto);
+  }
+
   // DELETE /api/checklists/delete/{id}
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.base}/delete/${id}`);

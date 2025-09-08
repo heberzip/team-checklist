@@ -1,26 +1,28 @@
 <!-- src/app/app.html -->
-<header
-  class="w-full fixed top-0 right-0 left-0 p-5 pb-8 mb-20 bg-white shadow-md"
->
-  <h1>{{ title() }}</h1>
+<div class="min-h-dvh flex flex-col">
+  <header
+    class="fixed top-0 right-0 left-0 px-6 py-6 sm:py-8 bg-neutral-700 shadow-lg z-10 flex flex-col gap-4 sm:gap-0 sm:flex-row sm:items-center sm:justify-between"
+  >
+    <h1>{{ title() }}</h1>
 
-  <nav>
-    <a
-      routerLink="/checklists"
-      routerLinkActive="active"
-      ariaCurrentWhenActive="page"
-    >
-      Checklists
-    </a>
-    <a routerLink="/checklists/new" routerLinkActive="active"> Nuevo </a>
-  </nav>
-</header>
+    <nav>
+      <a
+        routerLink="/checklists"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+      >
+        Checklists
+      </a>
+      <a routerLink="/checklists/new" routerLinkActive="active"> Nuevo </a>
+    </nav>
+  </header>
 
-<main class="w-full mt-30">
-  <p-toast position="top-right" unstyled></p-toast>
-  <router-outlet />
-</main>
+  <main class="flex-1 mt-20 sm:mt-15">
+    <p-toast position="top-right" unstyled></p-toast>
+    <router-outlet />
+  </main>
 
-<footer class="w-full muted" style="margin-top: 2rem">
-  <small>© {{ title() }}</small>
-</footer>
+  <footer class="mt-auto muted" style="margin-top: 2rem">
+    <small>© {{ title() }}</small>
+  </footer>
+</div>

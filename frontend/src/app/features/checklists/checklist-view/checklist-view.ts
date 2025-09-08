@@ -17,20 +17,20 @@ import { ButtonModule } from 'primeng/button';
 export class ChecklistView implements OnInit {
   private chlApi = inject(ChecklistService);
   private itmApi = inject(ItemService);
+  private router = inject(Router);
   private route = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
 
-  loading = false;
   chlData: Omit<Checklist, 'items'> | null = null;
   itmData: Item[] = [];
-  error?: string;
 
+  loading = signal(false);
+  error = signal<string | null>(null);
   chlId = signal(Number(this.route.snapshot.paramMap.get('id')));
 
   ngOnInit() {
-    this.loading = true;
+    this.loading.set(true);
 
-    // load checlist header data
     this.chlApi
       .get(this.chlId())
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -39,28 +39,40 @@ export class ChecklistView implements OnInit {
           this.chlData = res;
 
           if (this.chlData) {
-            // load items data
             this.itmApi
               .list(this.chlData.id)
               .pipe(takeUntilDestroyed(this.destroyRef))
               .subscribe({
                 next: (items) => {
                   this.itmData = items;
-                  this.loading = false;
+                  this.loading.set(false);
 
                   console.log('Items loaded:', items);
                 },
                 error: () => {
-                  this.error = 'Error cargando datos de items';
+                  this.error.set('Error cargando datos de items');
                 },
               });
           }
         },
         error: () => {
-          this.error = 'Error cargando datos de checklist';
-          this.loading = false;
+          this.error.set('Error cargando datos del checklist');
+          this.loading.set(false);
         },
       });
+  }
+
+  // navigation
+  goBack() {
+    this.router.navigate(['/checklists']);
+  }
+
+  goNew() {
+    this.router.navigate([`/checklists/${this.chlId()}/items/new`]);
+  }
+
+  goEdit(itmId: number) {
+    this.router.navigate([`/checklists/${this.chlId()}/items/${itmId}/edit`]);
   }
 
   delete(chlId: number, itmId: number) {
@@ -72,6 +84,9 @@ export class ChecklistView implements OnInit {
       .subscribe({
         next: () => {
           this.ngOnInit();
+        },
+        error: () => {
+          this.error.set('No se pudo eliminar el ítem');
         },
       });
   }

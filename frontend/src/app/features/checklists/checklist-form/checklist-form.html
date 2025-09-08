@@ -1,20 +1,46 @@
-<section class="container">
+<section class="flex flex-col gap-6 mt-8">
   <h2>{{ title }}</h2>
-  <form [formGroup]="form" (ngSubmit)="save()">
-    <label>Título *</label>
-    <input formControlName="title" />
-    @if (form.controls.title.touched && form.controls.title.invalid) {
-    <small class="error">Requerido, máx. 120 caracteres</small>
-    }
+  <form
+    [formGroup]="form"
+    (ngSubmit)="save()"
+    class="flex flex-col gap-4 justify-start"
+  >
+    <div class="flex flex-col gap-1">
+      <div class="flex justify-between items-center px-2">
+        <label
+          >Título <span class="text-error-500 font-semibold">*</span></label
+        >
+        @if (form.controls.title.touched && form.controls.title.invalid) {
+        <small class="error">Requerido, máx. 120 caracteres</small>
+        }
+      </div>
+      <input type="text" formControlName="title" />
+    </div>
 
-    <label>Descripción</label>
-    <textarea formControlName="description" rows="3"></textarea>
-    @if (form.controls.description.touched && form.controls.description.invalid)
-    {
-    <div class="error">Máx. 500 caracteres</div>
-    }
+    <div class="flex flex-col gap-1">
+      <div class="flex justify-between items-center px-2">
+        <label>Descripción</label>
+        @if (form.controls.description.touched &&
+        form.controls.description.invalid) {
+        <div class="error">Máx. 500 caracteres</div>
+        }
+      </div>
+      <textarea formControlName="description" rows="3"></textarea>
+    </div>
 
-    <button type="submit" [disabled]="form.invalid || loading">Guardar</button>
-    <button type="button" (click)="cancel()">Cancelar</button>
+    <div class="flex items-center gap-4 mt-6 justify-between">
+      <p-button
+        label="Guardar"
+        type="submit"
+        [disabled]="form.invalid || loading"
+        class="success"
+      />
+      <p-button
+        label="Cancelar"
+        type="button"
+        (click)="cancel()"
+        class="error"
+      />
+    </div>
   </form>
 </section>

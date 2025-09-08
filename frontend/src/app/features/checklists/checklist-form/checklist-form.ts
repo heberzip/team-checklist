@@ -5,9 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ChecklistService } from '../../../core/checklist.service';
 
+import { ButtonModule } from 'primeng/button';
+
 @Component({
   selector: 'chl-checklist-form',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule],
   templateUrl: './checklist-form.html',
 })
 export class ChecklistForm implements OnInit {

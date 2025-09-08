@@ -1,6 +1,8 @@
 <section class="flex flex-col gap-6 mt-8">
   <h2>Checklists</h2>
-  <p-button label="Añadir" class="primary" (click)="goNew()" />
+  <div class="flex items-center justify-start gap-4">
+    <p-button label="Añadir" class="primary" (click)="goNew()" />
+  </div>
 
   @if (loading) {
   <p>Cargando…</p>
@@ -15,13 +17,21 @@
           <strong (click)="openDetails(c.id)">{{ c.title }}</strong>
           <small>{{ c.createdAt | date : "short" }}</small>
         </div>
-        <p-button (click)="delete(c.id)" class="error" label="Eliminar" />
+        <p-button
+          icon="pi pi-trash"
+          class="icon square error"
+          (click)="delete(c.id)"
+        />
       </div>
       <div class="checklist-description">
         <p class="checklist-description title">{{ description() }}</p>
         <p class="checklist-description content">{{ c.description }}</p>
       </div>
-      <p-button label="Abrir" class="disabled" disabled />
+      <p-button
+        label="Abrir"
+        class="primary justify-center"
+        (click)="openDetails(c.id)"
+      />
     </li>
     }
   </ul>
