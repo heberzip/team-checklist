@@ -19,3 +19,9 @@ export interface ChecklistCreateDTO {
   title: string;
   description?: string | null;
 }
+
+export interface ItemUpdateDTO {
+  done?: boolean;
+  text?: string;
+  lastEditedBy?: string;
+}

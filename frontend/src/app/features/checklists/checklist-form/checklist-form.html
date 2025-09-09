@@ -1,5 +1,12 @@
 <section class="flex flex-col gap-6 mt-8">
-  <h2>{{ title }}</h2>
+  <div class="inline-flex gap-6">
+    <p-button
+      icon="pi pi-chevron-left"
+      class="zt-icon primary"
+      (click)="back()"
+    />
+    <h2>{{ pageTitle() }}</h2>
+  </div>
   <form
     [formGroup]="form"
     (ngSubmit)="save()"
@@ -19,7 +26,10 @@
 
     <div class="flex flex-col gap-1">
       <div class="flex justify-between items-center px-2">
-        <label>Descripción</label>
+        <label
+          >Descripción
+          <span class="text-neutral-300 italic text-sm">(opcional)</span></label
+        >
         @if (form.controls.description.touched &&
         form.controls.description.invalid) {
         <div class="error">Máx. 500 caracteres</div>
@@ -30,16 +40,20 @@
 
     <div class="flex items-center gap-4 mt-6 justify-between">
       <p-button
-        label="Guardar"
+        label="{{ submitLabel() }}"
         type="submit"
-        [disabled]="form.invalid || loading"
-        class="success"
+        disabled="{{ isDisabled() }}"
+        [ngClass]="{
+          'zt-success': true,
+          'zt-disabled': isDisabled(),
+          'transition-colors duration-300': true
+        }"
       />
       <p-button
         label="Cancelar"
         type="button"
         (click)="cancel()"
-        class="error"
+        class="zt-error"
       />
     </div>
   </form>

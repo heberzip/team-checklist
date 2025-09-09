@@ -2,6 +2,7 @@ package com.aggiovato.teamchecklist.checklist.web;
 
 import com.aggiovato.teamchecklist.checklist.dto.ChecklistCreateDTO;
 import com.aggiovato.teamchecklist.checklist.dto.ChecklistDTO;
+import com.aggiovato.teamchecklist.checklist.dto.ChecklistUpdateDTO;
 import com.aggiovato.teamchecklist.checklist.mapper.ChecklistMapper;
 import com.aggiovato.teamchecklist.checklist.service.ChecklistService;
 import jakarta.validation.Valid;
@@ -38,6 +39,12 @@ public class ChecklistController {
     @GetMapping("/{id}")
     public ChecklistDTO get(@PathVariable Long id) {
         return ChecklistMapper.toDTO(service.get(id));
+    }
+
+    @PutMapping("/update/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ChecklistDTO update(@PathVariable Long id, @Valid @RequestBody ChecklistUpdateDTO dto) {
+        return ChecklistMapper.toDTO(service.update(id, dto.title(), dto.description()));
     }
 
     @DeleteMapping("/delete/{id}") @ResponseStatus(HttpStatus.NO_CONTENT)

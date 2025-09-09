@@ -3,22 +3,31 @@
     class="flex flex-col sm:flex-row items-start gap-6 sm:gap-0 sm:items-center justify-between"
   >
     <div class="inline-flex gap-6">
-      <p-button icon="pi pi-chevron-left" class="icon" (click)="goBack()" />
-      <h2>{{ chlData?.title }}</h2>
+      <p-button
+        icon="pi pi-chevron-left"
+        class="zt-icon primary"
+        (click)="goBack()"
+      />
+      <h2>{{ chlData?.title | uppercase }}</h2>
     </div>
-    <p-button label="Añadir ítem" class="primary" (click)="goNew()" />
+    <p-button label="Añadir ítem" class="zt-primary" (click)="goNew()" />
   </div>
 
-  <p>{{ chlData?.description }}</p>
+  <p class="text-lg font-semibold">{{ chlData?.description }}</p>
 
-  @if (itmData.length) {
+  <div id="progress">
+    Completado {{ progressLbl() }} --- {{ progressPct() }}%
+  </div>
+
+  @if (itmSgn().length) {
   <ul class="item-list flex flex-col gap-2">
-    @for (i of itmData; track i.id) {
+    @for (i of itmSgn(); track i?.id ?? $index) {
     <li class="flex items-center gap-4 py-3 px-6 shadow-md rounded-lg">
       <label class="flex items-center space-x-4 flex-1">
         <input
           type="checkbox"
           [checked]="i.done"
+          (change)="toggleDone(i, $event.target.checked)"
           class="size-[15px] rounded border border-primary-400 accent-primary-500 hover:border-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary-500 focus-visible:outline-rounded disabled:opacity-50"
         />
         <span
@@ -30,12 +39,12 @@
       <div class="flex items-center gap-1">
         <p-button
           icon="pi pi-pencil"
-          class="icon square success"
+          class="zt-icon square success"
           (click)="goEdit(i.id)"
         />
         <p-button
           icon="pi pi-trash"
-          class="icon square error"
+          class="zt-icon square error"
           (click)="delete(chlId(), i.id)"
         />
       </div>
@@ -45,4 +54,13 @@
   } @else {
   <p>Sin ítems.</p>
   }
+
+  <chl-item-form
+    [visible]="showItemDialog()"
+    (visibleChange)="showItemDialog.set($event)"
+    [item]="editingItem()"
+    (save)="onDialogSave($event)"
+    (cancel)="onDialogCancel()"
+  >
+  </chl-item-form>
 </section>

@@ -1,17 +1,24 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChecklistService } from '../../../core/checklist.service';
 import { ItemService } from '../../../core/item.service';
-//import { Observable, switchMap } from 'rxjs';
 import { Checklist, Item } from '../../../store/models/checklist.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { ButtonModule } from 'primeng/button';
+import { ItemForm, ItemFormValue } from '../../items/item-form';
 
 @Component({
   selector: 'chl-checklist-view',
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule, ButtonModule, ItemForm],
   templateUrl: './checklist-view.html',
 })
 export class ChecklistView implements OnInit {
@@ -22,11 +29,26 @@ export class ChecklistView implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   chlData: Omit<Checklist, 'items'> | null = null;
-  itmData: Item[] = [];
+  itmSgn = signal<Item[]>([]);
 
   loading = signal(false);
   error = signal<string | null>(null);
   chlId = signal(Number(this.route.snapshot.paramMap.get('id')));
+
+  doneCount = computed(() =>
+    this.itmSgn().reduce((acc, i) => acc + (i?.done ? 1 : 0), 0)
+  );
+  totalCount = computed(() => this.itmSgn().length);
+  progressLbl = computed(() => `${this.doneCount()} / ${this.totalCount()}`);
+  progressPct = computed(() =>
+    this.totalCount()
+      ? Math.round((this.doneCount() * 100) / this.totalCount())
+      : 0
+  );
+
+  // DIALOG
+  showItemDialog = signal(false);
+  editingItem = signal<ItemFormValue | null>(null);
 
   ngOnInit() {
     this.loading.set(true);
@@ -44,10 +66,8 @@ export class ChecklistView implements OnInit {
               .pipe(takeUntilDestroyed(this.destroyRef))
               .subscribe({
                 next: (items) => {
-                  this.itmData = items;
+                  this.itmSgn.set(items);
                   this.loading.set(false);
-
-                  console.log('Items loaded:', items);
                 },
                 error: () => {
                   this.error.set('Error cargando datos de items');
@@ -62,17 +82,27 @@ export class ChecklistView implements OnInit {
       });
   }
 
-  // navigation
   goBack() {
     this.router.navigate(['/checklists']);
   }
 
   goNew() {
-    this.router.navigate([`/checklists/${this.chlId()}/items/new`]);
+    this.openCreate();
   }
 
   goEdit(itmId: number) {
-    this.router.navigate([`/checklists/${this.chlId()}/items/${itmId}/edit`]);
+    const itm = this.itmSgn().find((x) => x.id === itmId);
+    if (itm) this.openEdit(itm);
+  }
+
+  toggleDone(i: Item, checked: boolean) {
+    this.itmApi
+      .updateDone(this.chlId(), i.id, checked, 'user@mail.com')
+      .subscribe((updated) => {
+        this.itmSgn.update((arr) =>
+          arr.map((x) => (x.id === updated.id ? updated : x))
+        );
+      });
   }
 
   delete(chlId: number, itmId: number) {
@@ -89,5 +119,45 @@ export class ChecklistView implements OnInit {
           this.error.set('No se pudo eliminar el ítem');
         },
       });
+  }
+
+  openCreate() {
+    this.editingItem.set(null);
+    this.showItemDialog.set(true);
+  }
+
+  openEdit(itm: Item) {
+    this.editingItem.set({ id: itm.id, text: itm.text });
+    this.showItemDialog.set(true);
+  }
+
+  onDialogSave(payload: ItemFormValue) {
+    const dto = { text: payload.text };
+
+    if (payload.id) {
+      // UPDATE
+      this.itmApi.update(this.chlId(), payload.id, dto).subscribe({
+        next: (updated: Item) => {
+          this.itmSgn.update((list) =>
+            list.map((x) =>
+              x.id === updated.id ? { ...x, text: updated.text } : x
+            )
+          );
+        },
+        error: () => this.error.set('No se pudo actualizar el ítem'),
+      });
+    } else {
+      // CREATE
+      this.itmApi.create(this.chlId(), dto.text).subscribe({
+        next: (created: Item) => {
+          this.itmSgn.update((list) => [created, ...list]);
+        },
+        error: () => this.error.set('No se pudo crear el ítem'),
+      });
+    }
+  }
+
+  onDialogCancel() {
+    // opcional: toasts/logs
   }
 }

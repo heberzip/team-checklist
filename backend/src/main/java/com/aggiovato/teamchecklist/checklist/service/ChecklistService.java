@@ -38,6 +38,15 @@ public class ChecklistService {
         return repo.findById(id).orElseThrow(() -> new NotFoundException("Checklist"));
     }
 
+    // UPDATE
+    @Transactional
+    public Checklist update(Long id, String title, String description) {
+        var c = repo.findById(id).orElseThrow(() -> new NotFoundException("Checklist"));
+        c.setTitle(title);
+        c.setDescription(description);
+        return repo.save(c);
+    }
+
     // DELETE CHECKLIST BY ID
     @Transactional
     public void delete(Long id) { repo.deleteById(id);}

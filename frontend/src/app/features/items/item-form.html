@@ -1,0 +1,38 @@
+<p-dialog
+  [modal]="true"
+  [(visible)]="visible"
+  (onShow)="onShow()"
+  (onHide)="onHide()"
+  [styleClass]="'flex flex-col bg-white rounded-lg gap-6 p-6'"
+>
+  <form [formGroup]="form" (ngSubmit)="onSave()">
+    <h2>{{ item?.id ? "Editar ítem" : "Nuevo ítem" }}</h2>
+
+    <div class="flex flex-col items-start gap-4">
+      <label for="text">Texto *</label>
+      <input id="text" type="text" formControlName="text" />
+      @if ( form.controls.text.touched &&
+      form.controls.text.hasError('required')) {
+      <small class="text-xs text-error"> Campo requerido </small>
+      } @if (form.controls.text.touched &&
+      form.controls.text.hasError('maxlength')) {
+      <small class="text-xs text-error"> Máximo 200 caracteres </small>
+      }
+    </div>
+
+    <div class="flex justify-end gap-2 pt-2">
+      <p-button
+        type="button"
+        label="Cancelar"
+        class="zt-error"
+        (onClick)="onCancel()"
+      ></p-button>
+      <p-button
+        type="submit"
+        label="Guardar"
+        class="zt-success"
+        [disabled]="form.invalid"
+      ></p-button>
+    </div>
+  </form>
+</p-dialog>

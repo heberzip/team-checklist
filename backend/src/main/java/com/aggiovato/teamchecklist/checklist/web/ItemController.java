@@ -29,7 +29,7 @@ public class ItemController {
         return ItemMapper.toDTO(service.create(checklistId, dto.text()));
     }
 
-    @PatchMapping("/update/{itemId}")
+    @PutMapping("/update/{itemId}")
     public ItemDTO update(@PathVariable Long checklistId, @PathVariable Long itemId, @Valid @RequestBody ItemUpdateDTO dto) {
         return ItemMapper.toDTO(service.update(itemId, dto.done(), dto.text(), dto.lastEditedBy()));
     }

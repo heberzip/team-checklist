@@ -1,7 +1,7 @@
-<section class="flex flex-col gap-6 mt-8">
+<section class="checklist-list-section">
   <h2>Checklists</h2>
   <div class="flex items-center justify-start gap-4">
-    <p-button label="Añadir" class="primary" (click)="goNew()" />
+    <p-button label="Añadir checklist" class="zt-primary" (click)="goNew()" />
   </div>
 
   @if (loading) {
@@ -9,28 +9,37 @@
   } @if (error) {
   <p>{{ error }}</p>
   } @if (!loading && data.length) {
-  <ul class="checklist-grid">
+  <ul class="checklist-list-grid">
     @for (c of data; track c.id) {
     <li class="checklist-card">
-      <div class="checklist-card title">
+      <div class="checklist-card header">
         <div class="flex flex-col gap-0">
           <strong (click)="openDetails(c.id)">{{ c.title }}</strong>
           <small>{{ c.createdAt | date : "short" }}</small>
         </div>
-        <p-button
-          icon="pi pi-trash"
-          class="icon square error"
-          (click)="delete(c.id)"
-        />
+        <div class="flex items-center gap-1">
+          <p-button
+            icon="pi pi-pencil"
+            class="zt-icon square success"
+            (click)="goEdit(c.id)"
+          />
+          <p-button
+            icon="pi pi-trash"
+            class="zt-icon square error"
+            (click)="delete(c.id)"
+          />
+        </div>
       </div>
+      @if (c.description && c.description.length > 0) {
       <div class="checklist-description">
         <p class="checklist-description title">{{ description() }}</p>
         <p class="checklist-description content">{{ c.description }}</p>
       </div>
+      }
       <p-button
         label="Abrir"
-        class="primary justify-center"
         (click)="openDetails(c.id)"
+        class="zt-primary justify-center"
       />
     </li>
     }

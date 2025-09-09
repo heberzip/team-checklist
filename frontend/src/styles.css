@@ -1,7 +1,9 @@
 @import "tailwindcss";
+
+@import "primeicons/primeicons.css";
+
 @import "./styles/theme.css";
 @import "./styles/components/index.css";
-@import "primeicons/primeicons.css";
 
 /* ================================
    BASE
@@ -11,6 +13,33 @@ body {
   @apply relative bg-neutral-50 text-neutral-800 p-4 items-center;
   font-family: system-ui, -apple-system, "Nunito", sans-serif;
   line-height: 1.5;
+}
+:host ::ng-deep {
+  .p-button {
+    @apply flex items-center px-6 py-2 rounded-sm font-medium transition-colors h-full max-h-[36px];
+  }
+
+  .p-button.zt-primary {
+    @apply bg-primary-500 text-white hover:bg-primary-600;
+  }
+  .p-button.zt-secondary {
+    @apply bg-default   text-secondary-700 hover:bg-secondary-600 hover:text-white;
+  }
+  .p-button.zt-error {
+    @apply bg-error     text-white hover:bg-error-600;
+  }
+  .p-button.zt-success {
+    @apply bg-success   text-white hover:bg-success-600;
+  }
+  .p-button.zt-info {
+    @apply bg-info      text-white hover:bg-info-600;
+  }
+  .p-button.zt-warning {
+    @apply bg-warning   text-white hover:bg-warning-600;
+  }
+  .p-button.zt-neutral {
+    @apply bg-neutral-600 text-white hover:bg-neutral-700;
+  }
 }
 
 /* ================================
