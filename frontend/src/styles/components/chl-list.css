@@ -1,33 +1,42 @@
-.checklist-list-section {
-  @apply flex flex-col gap-6 mt-8;
+.chl-tools {
+  @apply flex justify-start mb-2;
 }
 
-.checklist-list-grid {
+.chl-list-grid {
   @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
 }
 
-.checklist-card {
+.chl-card {
   @apply flex flex-col bg-white shadow-md rounded-lg p-6 gap-6;
 
   &.header {
     @apply flex flex-row gap-2 bg-secondary-100 justify-between;
   }
+}
 
-  &.header strong {
+.chl-card-title {
+  @apply flex flex-col gap-0;
+
+  & strong {
     @apply font-semibold text-gray-800 text-lg mb-2 select-none;
   }
 
-  &.header strong:hover {
+  & strong:hover {
     @apply text-primary underline cursor-pointer transition-all duration-200;
   }
 
-  &.header small {
+  & small {
     @apply text-sm text-secondary-600;
   }
 }
 
-.checklist-description {
+.chl-card-actions {
+  @apply flex items-center gap-1;
+}
+
+.chl-card-description {
   @apply flex flex-col gap-2 px-2;
+
   &.title {
     @apply text-gray-600 flex-grow font-bold;
   }

@@ -8,6 +8,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 
+import { components } from '../../../../styles/components';
+
 @Component({
   selector: 'chl-checklist-list',
   imports: [CommonModule, DatePipe, ButtonModule],
@@ -19,6 +21,10 @@ export class ChecklistList implements OnInit {
   private destroyRef = inject(DestroyRef);
   private readonly msg = inject(MessageService);
 
+  // Tailwind - primeNG styles
+  pBtnSty = signal(components.ztBtn);
+  pIconBtnSty = signal(components.ztIconBtn);
+
   loading = false;
   data: Checklist[] = [];
   error?: string;
@@ -27,41 +33,56 @@ export class ChecklistList implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.api.list()
+    this.api
+      .list()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (res) => { this.data = res; this.loading = false; },
-        error: () => { this.error = 'Error cargando datos'; this.loading = false; }
+        next: (res) => {
+          this.data = res;
+          this.loading = false;
+        },
+        error: () => {
+          this.error = 'Error cargando datos';
+          this.loading = false;
+        },
       });
   }
 
-  goNew() { this.router.navigate(['/checklists/new']); }
+  goNew() {
+    this.router.navigate(['/checklists/new']);
+  }
 
-  goEdit(id: number) { this.router.navigate([`/checklists/${id}/edit`]); }
+  goEdit(id: number) {
+    this.router.navigate([`/checklists/${id}/edit`]);
+  }
 
-  openDetails(id: number) { this.router.navigate([`/checklists/${id}/details`]); }
+  openDetails(id: number) {
+    this.router.navigate([`/checklists/${id}/details`]);
+  }
 
   delete(id: number) {
     if (!confirm('¿Eliminar checklist?')) return;
 
-    this.api.delete(id)
+    this.api
+      .delete(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
           this.ngOnInit();
           this.msg.add({
-              severity: 'success',
-              summary: 'Eliminado',
-              detail: 'Checklist eliminado correctamente',
-              life: 2500
+            severity: 'info',
+            summary: 'Eliminado',
+            detail: 'Checklist eliminado correctamente',
+            life: 2000,
           });
         },
-        error: (err) => this.msg.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: err?.error?.message ?? 'No se pudo eliminar el checklist',
-          life: 4000
-        })
+        error: (err) =>
+          this.msg.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err?.error?.message ?? 'No se pudo eliminar el checklist',
+            life: 4000,
+          }),
       });
   }
 }

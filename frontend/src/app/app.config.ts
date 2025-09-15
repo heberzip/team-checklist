@@ -4,19 +4,34 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
+
 import { httpErrorsInterceptor } from './core/http.interceptor';
 import { provideRouter } from '@angular/router';
 
-import { MessageService } from 'primeng/api';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+import { MessageService } from 'primeng/api';
+
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideAnimations(),
+    provideAnimationsAsync(),
     MessageService,
-    providePrimeNG({ ripple: true }),
+    providePrimeNG({
+      ripple: true,
+      theme: {
+        preset: Aura,
+        options: {
+          cssLayer: {
+            name: 'primeng',
+            order: 'theme, base, primeng', // Tailwind v4
+          },
+          darkModeSelector: '.app-dark',
+        },
+      },
+    }),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),

@@ -1,15 +1,13 @@
-@import "tailwindcss";
 @import "./design-system.css";
-
 
 @theme {
   --color-default: var(--color-zip);
-  
+
   --color-primary-100: var(--color-blue-100);
   --color-primary-200: var(--color-blue-200);
   --color-primary-300: var(--color-blue-300);
   --color-primary-400: var(--color-blue-400);
-  --color-primary-500: var(--color-primary-default); 
+  --color-primary-500: var(--color-primary-default);
   --color-primary-default: var(--color-blue-500);
   --color-primary: var(--color-blue-500);
   --color-primary-600: var(--color-blue-600);
@@ -85,7 +83,6 @@
   --color-neutral-white: var(--color-white);
   --color-neutral-black: var(--color-black);
 
-  
   --radius-none: var(--scale-0);
   --radius-xs: var(--scale-50);
   --radius-sm: var(--scale-100);

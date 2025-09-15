@@ -1,45 +1,65 @@
-<section class="checklist-list-section">
-  <h2>Checklists</h2>
-  <div class="flex items-center justify-start gap-4">
-    <p-button label="Añadir checklist" class="zt-primary" (click)="goNew()" />
+<section class="section-container">
+  <h2 class="section-title">Checklists</h2>
+  <div class="chl-tools">
+    <p-button
+      label="Añadir checklist"
+      (click)="goNew()"
+      [styleClass]="
+        [pBtnSty().base, pBtnSty().variants['zt-primary']].join(' ')
+      "
+    />
   </div>
 
   @if (loading) {
-  <p>Cargando…</p>
+  <p class="section-loading">Cargando…</p>
   } @if (error) {
   <p>{{ error }}</p>
   } @if (!loading && data.length) {
-  <ul class="checklist-list-grid">
+  <ul class="chl-list-grid">
     @for (c of data; track c.id) {
-    <li class="checklist-card">
-      <div class="checklist-card header">
-        <div class="flex flex-col gap-0">
+    <li class="chl-card">
+      <div class="chl-card header">
+        <div class="chl-card-title">
           <strong (click)="openDetails(c.id)">{{ c.title }}</strong>
           <small>{{ c.createdAt | date : "short" }}</small>
         </div>
-        <div class="flex items-center gap-1">
+        <div class="chl-card-actions">
           <p-button
             icon="pi pi-pencil"
-            class="zt-icon square success"
             (click)="goEdit(c.id)"
+            [styleClass]="
+              [
+                pIconBtnSty().base,
+                pIconBtnSty().square.base,
+                pIconBtnSty().square.variants['zt-success']
+              ].join(' ')
+            "
           />
           <p-button
             icon="pi pi-trash"
-            class="zt-icon square error"
             (click)="delete(c.id)"
+            [styleClass]="
+              [
+                pIconBtnSty().base,
+                pIconBtnSty().square.base,
+                pIconBtnSty().square.variants['zt-error']
+              ].join(' ')
+            "
           />
         </div>
       </div>
       @if (c.description && c.description.length > 0) {
-      <div class="checklist-description">
-        <p class="checklist-description title">{{ description() }}</p>
-        <p class="checklist-description content">{{ c.description }}</p>
+      <div class="chl-card-description">
+        <p class="chl-card-description title">{{ description() }}</p>
+        <p class="chl-card-description content">{{ c.description }}</p>
       </div>
       }
       <p-button
         label="Abrir"
         (click)="openDetails(c.id)"
-        class="zt-primary justify-center"
+        [styleClass]="
+          [pBtnSty().base, pBtnSty().variants['zt-primary'], 'w-full'].join(' ')
+        "
       />
     </li>
     }

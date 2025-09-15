@@ -1,5 +1,3 @@
-@import "./checklist-list.css";
-
-/*PRIME NG COMPONENTS*/
-@import "./ui/p-button.css";
-@import "./ui/p-toast.css";
+@import "./chl-section.css";
+@import "./chl-list.css";
+@import "./chl-form.css";

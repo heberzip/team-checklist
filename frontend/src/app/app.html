@@ -18,7 +18,40 @@
   </header>
 
   <main class="flex-1 mt-20 sm:mt-15">
-    <p-toast position="top-right" unstyled></p-toast>
+    <p-toast position="top-right"
+    [baseZIndex]="5000" 
+    [showTransitionOptions]="'250ms'" 
+    [showTransformOptions]="'translateX(100%)'" 
+    [hideTransitionOptions]="'150ms'" 
+    [hideTransformOptions]="'translateX(100%)'">
+      <ng-template let-message #headless let-closeFn="closeFn">
+        @let sty = pToastSty(); 
+        @let sev = (message.severity === 'success') ? 'success'
+        : (message.severity === 'warn')    ? 'warn'
+        : (message.severity === 'error')   ? 'error'
+        : 'info';
+        @let icon = (sev === 'success') ? 'pi pi-check-circle'
+          : (sev === 'warn')    ? 'pi pi-exclamation-circle'
+          : (sev === 'error')   ? 'pi pi-times-circle'
+          : 'pi pi-info-circle';
+
+        <section [ngClass]="[sty.message.base, sty.message.variants[sev]].join(' ')">
+          <i class="{{icon}}" [ngClass]="sty.message.icon"></i>
+          <div [ngClass]="sty.message.text">
+            <div class="font-semibold">{{ message.summary }}</div>
+            <div class="opacity-80">{{ message.detail }}</div>
+          </div>
+
+          <button
+            type="button"
+            [ngClass]="sty.message.close"
+            (click)="closeFn($event)"
+          >
+            <i class="pi pi-times"></i>
+          </button>
+        </section>
+      </ng-template>
+    </p-toast>
     <router-outlet />
   </main>
 

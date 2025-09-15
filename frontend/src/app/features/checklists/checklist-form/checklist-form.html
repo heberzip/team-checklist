@@ -1,11 +1,17 @@
-<section class="flex flex-col gap-6 mt-8">
-  <div class="inline-flex gap-6">
+<section class="section-container">
+  <div class="chl-form-tools">
     <p-button
       icon="pi pi-chevron-left"
-      class="zt-icon primary"
       (click)="back()"
+      [styleClass]="
+        [
+          pIconBtnSty().base,
+          pIconBtnSty().rounded.base,
+          pIconBtnSty().rounded.variants['zt-primary']
+        ].join(' ')
+      "
     />
-    <h2>{{ pageTitle() }}</h2>
+    <h2 class="section-title">{{ pageTitle() }}</h2>
   </div>
   <form
     [formGroup]="form"
@@ -43,17 +49,22 @@
         label="{{ submitLabel() }}"
         type="submit"
         disabled="{{ isDisabled() }}"
-        [ngClass]="{
-          'zt-success': true,
-          'zt-disabled': isDisabled(),
-          'transition-colors duration-300': true
-        }"
+        [styleClass]="
+          [
+            pBtnSty().base,
+            isDisabled()
+              ? pBtnSty().variants['zt-disabled']
+              : pBtnSty().variants['zt-success']
+          ].join(' ')
+        "
       />
       <p-button
         label="Cancelar"
         type="button"
         (click)="cancel()"
-        class="zt-error"
+        [styleClass]="
+          [pBtnSty().base, pBtnSty().variants['zt-error']].join(' ')
+        "
       />
     </div>
   </form>

@@ -16,6 +16,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonModule } from 'primeng/button';
 import { ItemForm, ItemFormValue } from '../../items/item-form';
 
+import { components } from '../../../../styles/components';
+
 @Component({
   selector: 'chl-checklist-view',
   imports: [CommonModule, ButtonModule, ItemForm],
@@ -27,6 +29,10 @@ export class ChecklistView implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
+
+  //styles
+  pBtnSty = signal(components.ztBtn);
+  pIconBtnSty = signal(components.ztIconBtn);
 
   chlData: Omit<Checklist, 'items'> | null = null;
   itmSgn = signal<Item[]>([]);

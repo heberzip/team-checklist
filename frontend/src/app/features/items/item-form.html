@@ -3,20 +3,25 @@
   [(visible)]="visible"
   (onShow)="onShow()"
   (onHide)="onHide()"
-  [styleClass]="'flex flex-col bg-white rounded-lg gap-6 p-6'"
+  [class]="dlg.root"
+  [maskStyleClass]="dlg.mask"
+  [contentStyleClass]="dlg.content"
 >
-  <form [formGroup]="form" (ngSubmit)="onSave()">
-    <h2>{{ item?.id ? "Editar ítem" : "Nuevo ítem" }}</h2>
+  <form [formGroup]="form" (ngSubmit)="onSave()" class="flex flex-col gap-6">
+    <h2 class="text-lg font-semibold">
+      {{ item?.id ? "Editar ítem" : "Nuevo ítem" }}
+    </h2>
 
     <div class="flex flex-col items-start gap-4">
       <label for="text">Texto *</label>
       <input id="text" type="text" formControlName="text" />
-      @if ( form.controls.text.touched &&
+
+      @if (form.controls.text.touched &&
       form.controls.text.hasError('required')) {
-      <small class="text-xs text-error"> Campo requerido </small>
+      <small class="text-xs text-error">Campo requerido</small>
       } @if (form.controls.text.touched &&
       form.controls.text.hasError('maxlength')) {
-      <small class="text-xs text-error"> Máximo 200 caracteres </small>
+      <small class="text-xs text-error">Máximo 200 caracteres</small>
       }
     </div>
 
@@ -24,14 +29,19 @@
       <p-button
         type="button"
         label="Cancelar"
-        class="zt-error"
         (onClick)="onCancel()"
+        [styleClass]="
+          [pBtnSty().base, pBtnSty().variants['zt-error']].join(' ')
+        "
       ></p-button>
+
       <p-button
         type="submit"
         label="Guardar"
-        class="zt-success"
         [disabled]="form.invalid"
+        [styleClass]="
+          [pBtnSty().base, pBtnSty().variants['zt-success']].join(' ')
+        "
       ></p-button>
     </div>
   </form>

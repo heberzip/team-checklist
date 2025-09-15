@@ -1,9 +1,19 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+  signal,
+} from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+import { components } from '../../../styles/components';
+import { pDialogSty } from '../../../styles/components';
 
 export type ItemFormValue = { id?: number; text: string };
 
@@ -30,6 +40,9 @@ export class ItemForm {
   @Output() cancel = new EventEmitter<void>();
 
   private fb = inject(FormBuilder);
+
+  pBtnSty = signal(components.ztBtn);
+  dlg = pDialogSty('lg');
 
   form = this.fb.nonNullable.group({
     text: ['', [Validators.required, Validators.maxLength(200)]],

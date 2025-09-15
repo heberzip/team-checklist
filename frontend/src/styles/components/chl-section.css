@@ -1,0 +1,11 @@
+.section-container {
+  @apply flex flex-col gap-6 mt-8;
+}
+
+.section-title {
+  @apply text-2xl font-semibold text-neutral-600 select-none;
+}
+
+.section-loading {
+  @apply text-center text-neutral-400 text-lg font-semibold;
+}

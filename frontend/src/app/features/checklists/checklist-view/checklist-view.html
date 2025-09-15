@@ -1,16 +1,36 @@
-<section class="flex flex-col gap-6 mt-8">
+<section class="section-container">
+  <chl-item-form
+    [visible]="showItemDialog()"
+    (visibleChange)="showItemDialog.set($event)"
+    [item]="editingItem()"
+    (save)="onDialogSave($event)"
+    (cancel)="onDialogCancel()"
+  >
+  </chl-item-form>
   <div
     class="flex flex-col sm:flex-row items-start gap-6 sm:gap-0 sm:items-center justify-between"
   >
     <div class="inline-flex gap-6">
       <p-button
         icon="pi pi-chevron-left"
-        class="zt-icon primary"
         (click)="goBack()"
+        [styleClass]="
+          [
+            pIconBtnSty().base,
+            pIconBtnSty().rounded.base,
+            pIconBtnSty().rounded.variants['zt-primary']
+          ].join(' ')
+        "
       />
-      <h2>{{ chlData?.title | uppercase }}</h2>
+      <h2 class="section-title">{{ chlData?.title | uppercase }}</h2>
     </div>
-    <p-button label="Añadir ítem" class="zt-primary" (click)="goNew()" />
+    <p-button
+      label="Añadir ítem"
+      (click)="goNew()"
+      [styleClass]="
+        [pBtnSty().base, pBtnSty().variants['zt-success']].join(' ')
+      "
+    />
   </div>
 
   <p class="text-lg font-semibold">{{ chlData?.description }}</p>
@@ -39,13 +59,25 @@
       <div class="flex items-center gap-1">
         <p-button
           icon="pi pi-pencil"
-          class="zt-icon square success"
           (click)="goEdit(i.id)"
+          [styleClass]="
+            [
+              pIconBtnSty().base,
+              pIconBtnSty().square.base,
+              pIconBtnSty().square.variants['zt-success']
+            ].join(' ')
+          "
         />
         <p-button
           icon="pi pi-trash"
-          class="zt-icon square error"
           (click)="delete(chlId(), i.id)"
+          [styleClass]="
+            [
+              pIconBtnSty().base,
+              pIconBtnSty().square.base,
+              pIconBtnSty().square.variants['zt-error']
+            ].join(' ')
+          "
         />
       </div>
     </li>
@@ -54,13 +86,4 @@
   } @else {
   <p>Sin ítems.</p>
   }
-
-  <chl-item-form
-    [visible]="showItemDialog()"
-    (visibleChange)="showItemDialog.set($event)"
-    [item]="editingItem()"
-    (save)="onDialogSave($event)"
-    (cancel)="onDialogCancel()"
-  >
-  </chl-item-form>
 </section>
